@@ -1,0 +1,53 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Lapar" parent="@style/AppTheme"/>
+
+    <style name="AuthHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuthForm">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/form_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/form_horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/form_vertical_margin</item>
+        <item name="android:paddingBottom">@dimen/form_vertical_padding</item>
+        <item name="android:paddingLeft">@dimen/form_horizontal_padding</item>
+        <item name="android:paddingRight">@dimen/form_horizontal_padding</item>
+        <item name="android:paddingTop">@dimen/form_vertical_padding</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="AuthInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ems">10</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColorHint">@color/colorInputHint</item>
+    </style>
+
+    <style name="AuthButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/form_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/form_horizontal_margin</item>
+        <item name="android:background">@drawable/button_custom</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+</resources>

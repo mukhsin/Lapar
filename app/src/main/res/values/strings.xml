@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Lapar</string>
+    <string name="auth_title">LAPAR</string>
+    <string name="auth_sibtitle">Laporan Parkir Liar</string>
+    <string name="label_username">Username</string>
+    <string name="label_password">Password</string>
+    <string name="label_email">Email</string>
+    <string name="label_button_login">Login</string>
+    <string name="label_go_to_signup">Don\'t have an account? Sign up!</string>
+    <string name="label_button_signup_cancel">Cancel</string>
+    <string name="label_button_signup">Sign Up</string>
+    <string name="content_desc_button_devider">Button devider</string>
+</resources>

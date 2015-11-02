@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.ifunsoed13.rpl.lapar.LoginActivity">
+
+    <TextView
+        android:id="@+id/label_login_title"
+        style="@style/AuthHeader"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
+        android:text="@string/auth_title"
+        android:textSize="60sp"/>
+
+    <TextView
+        android:id="@+id/label_login_subtitle"
+        style="@style/AuthHeader"
+        android:layout_below="@+id/label_login_title"
+        android:text="@string/auth_sibtitle"
+        android:textSize="13sp"/>
+
+    <LinearLayout
+        android:id="@+id/form_login"
+        style="@style/AuthForm"
+        android:layout_below="@+id/label_login_subtitle">
+
+        <EditText
+            android:id="@+id/input_login_username"
+            style="@style/AuthInput"
+            android:hint="@string/label_username"
+            android:inputType="textPersonName"/>
+
+        <EditText
+            android:id="@+id/input_login_password"
+            style="@style/AuthInput"
+            android:hint="@string/label_password"
+            android:inputType="textPassword"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_login"
+        style="@style/AuthButton"
+        android:layout_below="@id/form_login"
+        android:text="@string/label_button_login"/>
+
+    <TextView
+        android:id="@+id/label_go_to_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/label_go_to_signup"
+        android:textColor="@color/colorAccent"
+        android:textSize="13sp"
+        android:textStyle="bold"/>
+</RelativeLayout>
