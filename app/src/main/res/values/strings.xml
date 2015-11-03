@@ -10,4 +10,14 @@
     <string name="label_button_signup_cancel">Cancel</string>
     <string name="label_button_signup">Sign Up</string>
     <string name="content_desc_button_devider">Button devider</string>
+    <string name="action_camera">Camera</string>
+    <string name="error_title">Oops!</string>
+    <string name="error_message_requirements">Aplikasi ini membutuhkan akses internet dan GPS.
+        Aktifkan sekarang?</string>
+    <string name="error_button_exit">Keluar</string>
+    <string name="error_button_activate_reuirements">Aktifkan</string>
+    <string name="error_message_login">Pastikan Anda telah mengisi username dan password dengan
+        benar.</string>
+    <string name="error_message_signup">Pastikan Anda telah mengisi username, password dan
+        alamat email dengan benar.</string>
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.ifunsoed13.rpl.lapar.MapActivity">
+
+    <item
+        android:id="@+id/action_camera"
+        android:icon="@mipmap/ic_action_camera"
+        android:title="@string/action_camera"
+        app:showAsAction="always">
+    </item>
+</menu>

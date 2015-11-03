@@ -6,4 +6,5 @@
     <dimen name="form_vertical_margin">16dp</dimen>
     <dimen name="form_horizontal_padding">16dp</dimen>
     <dimen name="form_vertical_padding">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
