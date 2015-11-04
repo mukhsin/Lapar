@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash);
 
         mActivity = this;
 
@@ -64,12 +64,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected boolean isNetWorkAvailable() {
-        if (mNetworkInfo != null && mNetworkInfo.isConnected()) return true;
-        else return false;
+        return mNetworkInfo != null && mNetworkInfo.isConnected();
     }
 
     protected boolean isGpsAvailable() {
-        if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) return true;
-        else return false;
+        return mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 }

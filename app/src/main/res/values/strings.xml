@@ -3,6 +3,8 @@
     <string name="application_id">z7senmUamnpXQeii8IvFiBzyT30BHZgvK945pYhQ</string>
     <string name="client_key">zYPMUKeiqFlZMPlo2LJZ79t4faPv24yOLKfepZ1K</string>
 
+    <string name="title_activity_main">MainActivity</string>
+
     <string name="auth_title">LAPAR</string>
     <string name="auth_sibtitle">Laporan Parkir Liar</string>
 
@@ -17,15 +19,15 @@
     <string name="content_desc_button_devider">Button devider</string>
 
     <string name="action_camera">Camera</string>
+    <string name="action_logout">Logout</string>
 
     <string name="error_title">Oops!</string>
     <string name="error_message_requirements">Aplikasi ini membutuhkan akses internet dan GPS.
         Aktifkan sekarang?</string>
-    <string name="error_button_exit">Keluar</string>
-    <string name="error_button_activate_reuirements">Aktifkan</string>
     <string name="error_message_login">Pastikan Anda telah mengisi username dan password dengan
         benar.</string>
     <string name="error_message_signup">Pastikan Anda telah mengisi username, password dan
         alamat email dengan benar.</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="error_button_exit">Keluar</string>
+    <string name="error_button_activate_reuirements">Aktifkan</string>
 </resources>
