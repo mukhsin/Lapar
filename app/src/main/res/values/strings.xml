@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Lapar</string>
+    <string name="application_id">z7senmUamnpXQeii8IvFiBzyT30BHZgvK945pYhQ</string>
+    <string name="client_key">zYPMUKeiqFlZMPlo2LJZ79t4faPv24yOLKfepZ1K</string>
+
     <string name="auth_title">LAPAR</string>
     <string name="auth_sibtitle">Laporan Parkir Liar</string>
+
     <string name="label_username">Username</string>
     <string name="label_password">Password</string>
     <string name="label_email">Email</string>
@@ -9,8 +13,11 @@
     <string name="label_go_to_signup">Don\'t have an account? Sign up!</string>
     <string name="label_button_signup_cancel">Cancel</string>
     <string name="label_button_signup">Sign Up</string>
+
     <string name="content_desc_button_devider">Button devider</string>
+
     <string name="action_camera">Camera</string>
+
     <string name="error_title">Oops!</string>
     <string name="error_message_requirements">Aplikasi ini membutuhkan akses internet dan GPS.
         Aktifkan sekarang?</string>
@@ -20,4 +27,5 @@
         benar.</string>
     <string name="error_message_signup">Pastikan Anda telah mengisi username, password dan
         alamat email dengan benar.</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

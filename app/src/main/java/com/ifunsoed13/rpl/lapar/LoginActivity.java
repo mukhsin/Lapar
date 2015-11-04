@@ -1,5 +1,6 @@
 package com.ifunsoed13.rpl.lapar;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,10 +19,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public static AppCompatActivity mActivity;
 
-    EditText mUsername;
-    EditText mPassword;
-    Button mLogin;
-    TextView mSignup;
+    protected EditText mUsername;
+    protected EditText mPassword;
+    protected Button mLogin;
+    protected TextView mSignup;
+    protected ProgressDialog loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +56,14 @@ public class LoginActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 } else {
+                    loading = ProgressDialog.show(LoginActivity.this, "Loading", "Logging in...",
+                            true);
+
                     ParseUser.logInInBackground(username, password, new LogInCallback() {
                         @Override
                         public void done(ParseUser parseUser, ParseException e) {
+                            loading.dismiss();
+
                             if (e == null) {
                                 // Success
                                 Intent intent = new Intent(LoginActivity.this, MapActivity.class);

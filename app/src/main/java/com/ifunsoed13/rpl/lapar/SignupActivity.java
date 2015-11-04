@@ -1,5 +1,6 @@
 package com.ifunsoed13.rpl.lapar;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,11 +16,12 @@ import com.parse.SignUpCallback;
 
 public class SignupActivity extends AppCompatActivity {
 
-    EditText mUsername;
-    EditText mPassword;
-    EditText mEmail;
-    Button mSignup;
-    Button mCancel;
+    protected EditText mUsername;
+    protected EditText mPassword;
+    protected EditText mEmail;
+    protected Button mSignup;
+    protected Button mCancel;
+    protected ProgressDialog loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,9 @@ public class SignupActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 } else {
+                    loading = ProgressDialog.show(SignupActivity.this, "Loading", "Signing " +
+                            "up...", true);
+
                     ParseUser user = new ParseUser();
                     user.setUsername(username);
                     user.setPassword(password);
@@ -68,6 +73,8 @@ public class SignupActivity extends AppCompatActivity {
                     user.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
+                            loading.dismiss();
+                            
                             if (e == null) {
                                 // Success
                                 Intent intent = new Intent(SignupActivity.this, MapActivity.class);
