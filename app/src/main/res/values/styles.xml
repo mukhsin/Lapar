@@ -32,6 +32,7 @@
         <item name="android:layout_marginLeft">@dimen/form_horizontal_margin</item>
         <item name="android:layout_marginRight">@dimen/form_horizontal_margin</item>
         <item name="android:layout_marginTop">@dimen/form_vertical_margin</item>
+        <item name="android:layout_centerVertical">true</item>
         <item name="android:paddingBottom">@dimen/form_vertical_padding</item>
         <item name="android:paddingLeft">@dimen/form_horizontal_padding</item>
         <item name="android:paddingRight">@dimen/form_horizontal_padding</item>

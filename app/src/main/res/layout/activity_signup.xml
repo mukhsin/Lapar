@@ -7,7 +7,7 @@
     android:background="@color/colorPrimary"
     tools:context="com.ifunsoed13.rpl.lapar.SignupActivity">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/label_signup_title"
         style="@style/AuthHeader"
         android:layout_alignParentTop="true"
@@ -20,12 +20,11 @@
         style="@style/AuthHeader"
         android:layout_below="@+id/label_signup_title"
         android:text="@string/auth_sibtitle"
-        android:textSize="13sp"/>
+        android:textSize="13sp"/>-->
 
     <LinearLayout
         android:id="@+id/form_signup"
-        style="@style/AuthForm"
-        android:layout_below="@+id/label_signup_subtitle">
+        style="@style/AuthForm">
 
         <EditText
             android:id="@+id/input_signup_username"
@@ -45,6 +44,15 @@
             android:hint="@string/label_email"
             android:inputType="textEmailAddress"/>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image_logo_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/form_signup"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_splash"/>
 
     <LinearLayout
         android:layout_width="match_parent"
