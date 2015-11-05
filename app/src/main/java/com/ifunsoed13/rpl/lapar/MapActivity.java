@@ -63,7 +63,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(final GoogleMap map) {
-        position = new LatLng(gps.getLatitude(), gps.getLongitude());
+        position = new LatLng(latitude, longitude);
         cameraPosition = new CameraPosition.Builder().target(position).zoom(5).build();
         marker = new MarkerOptions().position(position);
         marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));

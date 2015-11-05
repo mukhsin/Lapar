@@ -6,6 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:actionOverflowButtonStyle">@style/AppTheme.Overflow</item>-->
+    </style>
+
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+    </style>
+
+    <style name="PopupMenu" parent="AppTheme.PopupOverlay">
+        <item name="android:colorBackground">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/colorAccent</item>
     </style>
 
     <style name="AuthHeader">
