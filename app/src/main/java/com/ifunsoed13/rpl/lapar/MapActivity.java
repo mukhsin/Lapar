@@ -3,13 +3,17 @@ package com.ifunsoed13.rpl.lapar;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,11 +31,13 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.Date;
 import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final String TAG = MapActivity.class.getSimpleName();
+    public static final int camRequestCode = 1;
 
     protected GPSTracker gps;
     protected double latitude;
@@ -40,6 +46,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected CameraPosition cameraPosition;
     protected MarkerOptions marker;
     protected ProgressDialog loading;
+
+    private CharSequence namaFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +118,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         int id = item.getItemId();
         switch (id) {
             case R.id.action_camera:
-                Toast.makeText(MapActivity.this, "Buka kamera", Toast.LENGTH_SHORT).show();
-                break;
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                // Nama file gambar agar unik.
+                Date date = new Date();
+                namaFile = DateFormat.format("yyyy_MM_dd_HH_mm_ss", date.getTime());
+
+                startActivityForResult(intent, camRequestCode);
+                return true;
             case R.id.action_logout:
                 loading = ProgressDialog.show(MapActivity.this, "Loading", "Logging out...", true);
 
@@ -142,9 +156,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         }
                     }
                 });
-                break;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == camRequestCode)
+        {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            Intent intent = new Intent(this, KonfirmasiActivity.class);
+            intent.putExtra("bitmap", bitmap);
+            intent.putExtra("namaFile", namaFile);
+            startActivity(intent);
+        }
     }
 }
