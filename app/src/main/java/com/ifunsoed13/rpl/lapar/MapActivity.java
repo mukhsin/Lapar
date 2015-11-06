@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -23,6 +25,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
 import com.parse.LogOutCallback;
@@ -31,17 +34,17 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final String TAG = MapActivity.class.getSimpleName();
     public static final int camRequestCode = 1;
 
-    protected GPSTracker gps;
-    protected double latitude;
-    protected double longitude;
+    protected double latitude, longitude;
     protected LatLng position;
     protected CameraPosition cameraPosition;
     protected MarkerOptions marker;
@@ -59,24 +62,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(MapActivity.this);
-        gps = new GPSTracker(getApplicationContext());
+
+        GPSTracker gps = new GPSTracker(this);
         latitude = gps.getLatitude();
         longitude = gps.getLongitude();
-
-        ParseObject location = new ParseObject("Locations");
-        location.put("latitude", latitude);
-        location.put("longitude", longitude);
-        location.saveInBackground();
     }
 
     @Override
     public void onMapReady(final GoogleMap map) {
         position = new LatLng(latitude, longitude);
         cameraPosition = new CameraPosition.Builder().target(position).zoom(5).build();
-        marker = new MarkerOptions().position(position);
-        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));
-
-        map.addMarker(marker);
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         ParseQuery<ParseObject> query = new ParseQuery<>("Locations");
@@ -87,16 +82,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (e == null) {
                     double[] lat = new double[locations.size()];
                     double[] lng = new double[locations.size()];
+                    Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
 
                     for (int i = 0; i < lat.length; i++) {
                         lat[i] = locations.get(i).getDouble("latitude");
                         lng[i] = locations.get(i).getDouble("longitude");
 
-                        MarkerOptions newMarker = new MarkerOptions().position(new LatLng(lat[i],
-                                lng[i]));
-                        newMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));
+                        try {
+                            List<Address> addresses = gcd.getFromLocation(lat[i], lng[i], locations.size());
+                            MarkerOptions newMarker = new MarkerOptions().position(new LatLng(lat[i],
+                                    lng[i])).title(addresses.get(i).getLocality() +", "+ addresses.get(i).getFeatureName());
+                            newMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));
 
-                        map.addMarker(newMarker);
+                            map.addMarker(newMarker);
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                 } else {
                     // Error

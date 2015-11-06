@@ -21,6 +21,7 @@ public class KonfirmasiActivity extends AppCompatActivity {
 
     ImageView imgDisplay;
     Button btnKirim, btnBatal;
+    double lat, lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,10 @@ public class KonfirmasiActivity extends AppCompatActivity {
         btnKirim = (Button) findViewById(R.id.btnKirim);
         btnBatal = (Button) findViewById(R.id.btnBatal);
 
+        GPSTracker gps = new GPSTracker(this);
+        lat = gps.getLatitude();
+        lng = gps.getLongitude();
+
         btnKirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,8 +55,8 @@ public class KonfirmasiActivity extends AppCompatActivity {
 
                     ParseObject spot = new ParseObject("Locations");
                     spot.put("photo", file);
-                    spot.put("latitude", 0);
-                    spot.put("longtitude", 0);
+                    spot.put("latitude", lat);
+                    spot.put("longtitude", lng);
                     spot.put("uploader", ParseUser.getCurrentUser().getUsername());
                     spot.saveInBackground(new SaveCallback() {
                         @Override
