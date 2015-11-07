@@ -30,7 +30,7 @@ public class KonfirmasiActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final Bitmap bitmap = (Bitmap) intent.getParcelableExtra("bitmap");
-        final String namaFile = intent.getExtras().getString("namaFile");
+        final CharSequence namaFile = intent.getExtras().getCharSequence("namaFile");
         imgDisplay = (ImageView) findViewById(R.id.imgDisplay);
         imgDisplay.setImageBitmap(bitmap);
 
@@ -56,7 +56,7 @@ public class KonfirmasiActivity extends AppCompatActivity {
                     ParseObject spot = new ParseObject("Locations");
                     spot.put("photo", file);
                     spot.put("latitude", lat);
-                    spot.put("longtitude", lng);
+                    spot.put("longitude", lng);
                     spot.put("uploader", ParseUser.getCurrentUser().getUsername());
                     spot.saveInBackground(new SaveCallback() {
                         @Override
