@@ -65,7 +65,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDccbx0dwLQl2z1PDnNlTMeIKCM1928EAM" />
+            android:value="AIzaSyBG5WYHe46gIRN3Bzvm8Hah3_kQJFF6E5M" />
 
         <activity android:name=".KonfirmasiActivity" >
         </activity>

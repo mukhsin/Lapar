@@ -66,9 +66,11 @@ public class KonfirmasiActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "sukses", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(getApplicationContext(), MapActivity.class);
                                 startActivity(i);
+                                finish();
                             } else {
                                 // err.
                                 Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+                                finish();
                             }
                         }
                     });

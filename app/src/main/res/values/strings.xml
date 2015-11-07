@@ -30,4 +30,6 @@
         alamat email dengan benar.</string>
     <string name="error_button_exit">Keluar</string>
     <string name="error_button_activate_reuirements">Aktifkan</string>
+
+    <string name="content_imageView">Konten</string>
 </resources>
