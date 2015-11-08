@@ -55,7 +55,7 @@ public class UploadActivity extends AppCompatActivity {
 
                 // Ubah ke byteStream.
                 ByteArrayOutputStream arrayStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, arrayStream);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, arrayStream);
                 byte[] byteArray = arrayStream.toByteArray();
 
                 if (byteArray != null) {
