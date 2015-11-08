@@ -6,9 +6,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import com.parse.ParseUser;
 
@@ -50,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             } else {
                 // Map
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                intent.putExtra("next", "map");
+                intent.putExtra("time", 1);
                 startActivity(intent);
                 finish();
             }

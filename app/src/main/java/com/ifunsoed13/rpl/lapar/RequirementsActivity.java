@@ -18,14 +18,14 @@ public class RequirementsActivity extends AppCompatActivity {
         builder.setCancelable(false);
         builder.setTitle(getString(R.string.error_title));
         builder.setMessage(getString(R.string.error_message_requirements));
-        builder.setNegativeButton(getString(R.string.error_button_exit), new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.label_button_dialog_exit), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MainActivity.mActivity.finish();
                 finish();
             }
         });
-        builder.setPositiveButton(getString(R.string.error_button_activate_reuirements), new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.label_button_dialog_activate_reuirements), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_SETTINGS);

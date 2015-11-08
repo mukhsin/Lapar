@@ -3,6 +3,9 @@
     <string name="application_id">z7senmUamnpXQeii8IvFiBzyT30BHZgvK945pYhQ</string>
     <string name="client_key">zYPMUKeiqFlZMPlo2LJZ79t4faPv24yOLKfepZ1K</string>
 
+    <string name="API_KEY_MUKHSIN">AIzaSyDccbx0dwLQl2z1PDnNlTMeIKCM1928EAM</string>
+    <string name="API_KEY_NIKO">AIzaSyBG5WYHe46gIRN3Bzvm8Hah3_kQJFF6E5M</string>
+
     <string name="title_activity_main">MainActivity</string>
 
     <string name="auth_title">LAPAR</string>
@@ -11,25 +14,29 @@
     <string name="label_username">Username</string>
     <string name="label_password">Password</string>
     <string name="label_email">Email</string>
-    <string name="label_button_login">Login</string>
-    <string name="label_go_to_signup">Don\'t have an account? Sign up!</string>
-    <string name="label_button_signup_cancel">Cancel</string>
-    <string name="label_button_signup">Sign Up</string>
+    <string name="label_button_login">Masuk</string>
+    <string name="label_go_to_signup">Belum punya akun? Daftar sekarang!</string>
+    <string name="label_button_signup_cancel">Batal</string>
+    <string name="label_button_signup">Daftar</string>
+    <string name="label_button_upload_cancel">Batal</string>
+    <string name="label_button_upload">Unggah</string>
+    <string name="label_button_dialog_exit">Keluar</string>
+    <string name="label_button_dialog_activate_reuirements">Ya</string>
 
     <string name="content_desc_button_devider">Button devider</string>
 
-    <string name="action_camera">Camera</string>
-    <string name="action_logout">Logout</string>
+    <string name="action_camera">Kamera</string>
+    <string name="action_logout">Keluar</string>
 
-    <string name="error_title">Oops!</string>
+    <string name="error_title">Maaf!</string>
+    <string name="error_message_general">Terjadi kesalahan</string>
     <string name="error_message_requirements">Aplikasi ini membutuhkan akses internet dan GPS.
         Aktifkan sekarang?</string>
     <string name="error_message_login">Pastikan Anda telah mengisi username dan password dengan
         benar.</string>
     <string name="error_message_signup">Pastikan Anda telah mengisi username, password dan
         alamat email dengan benar.</string>
-    <string name="error_button_exit">Keluar</string>
-    <string name="error_button_activate_reuirements">Aktifkan</string>
 
     <string name="content_imageView">Konten</string>
+    <string name="content_desc_image_to_upload">Gambar untuk diunggah</string>
 </resources>

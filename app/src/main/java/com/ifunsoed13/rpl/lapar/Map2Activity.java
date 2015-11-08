@@ -44,9 +44,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class Map2Activity extends AppCompatActivity implements OnMapReadyCallback {
 
-    public static final String TAG = MapActivity.class.getSimpleName();
+    public static final String TAG = Map2Activity.class.getSimpleName();
     public static final int camRequestCode = 1;
 
     protected double latitude, longitude;
@@ -58,8 +58,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     AlertDialog dialog;
     View imgview;
     Bitmap bitmap;
-    List<Address> addresses;
+
     private CharSequence namaFile;
+
+    List<Address> addresses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(MapActivity.this);
+        mapFragment.getMapAsync(Map2Activity.this);
 
         GPSTracker gps = new GPSTracker(this);
         latitude = gps.getLatitude();
@@ -103,63 +105,63 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void done(List<ParseObject> locations, ParseException e) {
                 // Success
                 if (e == null) {
-//                    Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
+                    Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
 
                     for (int i = 0; i < locations.size(); i++) {
+                        try {
+                            ParseFile fileGambar = (ParseFile) locations.get(i).get("photo");
+                            fileGambar.getDataInBackground(new GetDataCallback() {
+                                @Override
+                                public void done(byte[] data, ParseException e) {
+                                    if(e == null){
+                                        bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                    }
+                                    else{
+                                        Toast.makeText(getApplicationContext(), "Tidak dapat " +
+                                                "mengambil gambar", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                            locations.get(i).getObjectId();
 
-                        double lat = locations.get(i).getDouble("latitude");
-                        double lng = locations.get(i).getDouble("longitude");
+                            AlertDialog.Builder dialogb = new AlertDialog.Builder(Map2Activity.this);
+                            LayoutInflater inflater = LayoutInflater.from(Map2Activity.this);
+                            imgview = inflater.inflate(R.layout.image_view, null);
+                            img = (ImageView) imgview.findViewById(R.id.markerImage);
+                            img.setImageBitmap(bitmap);
+                            dialogb.setTitle(addresses.get(0).getFeatureName());
+                            dialogb.setView(imgview);
+                            dialogb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                            dialog = dialogb.create();
 
-//                        try {
-//                            ParseFile fileGambar = (ParseFile) locations.get(i).get("photo");
-//                            fileGambar.getDataInBackground(new GetDataCallback() {
-//                                @Override
-//                                public void done(byte[] data, ParseException e) {
-//                                    if(e == null){
-//                                        bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-//                                    }
-//                                    else{
-//                                        Toast.makeText(getApplicationContext(), "Tidak dapat " +
-//                                                "mengambil gambar", Toast.LENGTH_LONG).show();
-//                                    }
-//                                }
-//                            });
-//                            addresses = gcd.getFromLocation(lat, lng, 1);
-//                            Log.i("KUPRETTTTTTTTTTT", addresses.get(0).toString());
-//
-//                            AlertDialog.Builder dialogb = new AlertDialog.Builder(MapActivity.this);
-//                            LayoutInflater inflater = LayoutInflater.from(MapActivity.this);
-//                            imgview = inflater.inflate(R.layout.image_view, null);
-//                            img = (ImageView) imgview.findViewById(R.id.markerImage);
-//                            img.setImageBitmap(bitmap);
-//                            dialogb.setTitle(addresses.get(0).getFeatureName());
-//                            dialogb.setView(imgview);
-//                            dialogb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    dialog.cancel();
-//                                }
-//                            });
-//                            dialog = dialogb.create();
-//
-//                        } catch (IOException ioe) {
-//                            ioe.printStackTrace();
-//                        }
+                            double lat = locations.get(i).getDouble("latitude");
+                            double lng = locations.get(i).getDouble("longitude");
+                            addresses = gcd.getFromLocation(lat, lng, 1);
+                            Log.i("KUPRETTTTTTTTTTT", addresses.get(0).toString());
 
-                        MarkerOptions newMarker = new MarkerOptions().position(new LatLng(lat,
-                                lng));
-                        newMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));
-                        map.addMarker(newMarker);
+                            MarkerOptions newMarker = new MarkerOptions().position(new LatLng(lat,
+                                    lng));
+                            newMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));
+                            map.addMarker(newMarker);
+
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
                     }
-//                    map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//
-//                        @Override
-//                        public boolean onMarkerClick(Marker marker) {
-//
-//                            dialog.show();
-//                            return false;
-//                        }
-//                    });
+                    map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+                        @Override
+                        public boolean onMarkerClick(Marker marker) {
+
+                            dialog.show();
+                            return false;
+                        }
+                    });
                 } else {
                     // Error
                     Log.e(TAG, e.getMessage());
@@ -189,7 +191,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 startActivityForResult(intent, camRequestCode);
                 return true;
             case R.id.action_logout:
-                loading = ProgressDialog.show(MapActivity.this, "Loading", "Logging out...", true);
+                loading = ProgressDialog.show(Map2Activity.this, "Loading", "Logging out...", true);
 
                 ParseUser.logOutInBackground(new LogOutCallback() {
                     @Override
@@ -198,12 +200,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                         if (e == null) {
                             // Success
-                            Intent intent = new Intent(MapActivity.this, LoginActivity.class);
+                            Intent intent = new Intent(Map2Activity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
                             // Error
-                            AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Map2Activity.this);
                             builder.setTitle(R.string.error_title);
                             builder.setMessage(e.getMessage());
                             builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -228,16 +230,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
-            if (requestCode == camRequestCode) {
-                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                Intent intent = new Intent(this, UploadActivity.class);
-                intent.putExtra("bitmap", bitmap);
-                intent.putExtra("namaFile", namaFile);
-                startActivity(intent);
-            }
-        } else if (resultCode != RESULT_CANCELED) {
-            Toast.makeText(this, R.string.error_message_general, Toast.LENGTH_LONG).show();
+        if(requestCode == camRequestCode)
+        {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            Intent intent = new Intent(this, UploadActivity.class);
+            intent.putExtra("bitmap", bitmap);
+            intent.putExtra("namaFile", namaFile);
+            startActivity(intent);
         }
     }
 }

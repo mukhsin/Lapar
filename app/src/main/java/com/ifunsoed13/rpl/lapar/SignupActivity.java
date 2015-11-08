@@ -62,8 +62,7 @@ public class SignupActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 } else {
-                    loading = ProgressDialog.show(SignupActivity.this, "Loading", "Signing " +
-                            "up...", true);
+                    loading = ProgressDialog.show(SignupActivity.this, "", "", true);
 
                     ParseUser user = new ParseUser();
                     user.setUsername(username);

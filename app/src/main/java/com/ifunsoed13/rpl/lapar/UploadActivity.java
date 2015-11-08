@@ -1,9 +1,11 @@
 package com.ifunsoed13.rpl.lapar;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,16 +19,20 @@ import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
 
-public class KonfirmasiActivity extends AppCompatActivity {
+public class UploadActivity extends AppCompatActivity {
 
     ImageView imgDisplay;
     Button btnKirim, btnBatal;
     double lat, lng;
 
+    protected ProgressDialog loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_konfirmasi);
+        setContentView(R.layout.activity_upload);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
         final Bitmap bitmap = (Bitmap) intent.getParcelableExtra("bitmap");
@@ -44,6 +50,9 @@ public class KonfirmasiActivity extends AppCompatActivity {
         btnKirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loading = ProgressDialog.show(UploadActivity.this, "", "Mengunggah" +
+                        " gambar", true);
+
                 // Ubah ke byteStream.
                 ByteArrayOutputStream arrayStream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, arrayStream);
@@ -61,6 +70,8 @@ public class KonfirmasiActivity extends AppCompatActivity {
                     spot.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
+                            loading.dismiss();
+
                             if (e == null) {
                                 // sucses.
                                 Toast.makeText(getApplicationContext(), "sukses", Toast.LENGTH_LONG).show();
