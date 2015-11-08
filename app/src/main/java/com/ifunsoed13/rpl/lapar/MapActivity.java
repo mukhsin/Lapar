@@ -40,6 +40,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -57,7 +58,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     ImageView img;
     AlertDialog dialog;
     View imgview;
+
     Bitmap bitmap;
+
     List<Address> addresses;
     private CharSequence namaFile;
 
@@ -94,7 +97,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(final GoogleMap map) {
         position = new LatLng(latitude, longitude);
-        cameraPosition = new CameraPosition.Builder().target(position).zoom(5).build();
+        cameraPosition = new CameraPosition.Builder().target(position).zoom(15).build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         ParseQuery<ParseObject> query = new ParseQuery<>("Locations");
@@ -103,14 +106,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void done(List<ParseObject> locations, ParseException e) {
                 // Success
                 if (e == null) {
-//                    Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
+                    Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+//                    ArrayList<String[]> mapTable = new ArrayList<String[]>();
+//                    String[] markersId = new String[locations.size()];
+//                    String[] locationsId = new String[locations.size()];
 
                     for (int i = 0; i < locations.size(); i++) {
 
                         double lat = locations.get(i).getDouble("latitude");
                         double lng = locations.get(i).getDouble("longitude");
 
-//                        try {
+//                        markersId[i] = "Marker " + i+1;
+//                        locationsId[i] = locations.get(i).getObjectId();
+
+                        try {
 //                            ParseFile fileGambar = (ParseFile) locations.get(i).get("photo");
 //                            fileGambar.getDataInBackground(new GetDataCallback() {
 //                                @Override
@@ -124,9 +134,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //                                    }
 //                                }
 //                            });
-//                            addresses = gcd.getFromLocation(lat, lng, 1);
-//                            Log.i("KUPRETTTTTTTTTTT", addresses.get(0).toString());
-//
+                            addresses = gcd.getFromLocation(lat, lng, 1);
+                            Log.i("KUPRETTTTTTTTTTT", addresses.get(0).toString());
+
 //                            AlertDialog.Builder dialogb = new AlertDialog.Builder(MapActivity.this);
 //                            LayoutInflater inflater = LayoutInflater.from(MapActivity.this);
 //                            imgview = inflater.inflate(R.layout.image_view, null);
@@ -141,25 +151,59 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //                                }
 //                            });
 //                            dialog = dialogb.create();
-//
-//                        } catch (IOException ioe) {
-//                            ioe.printStackTrace();
-//                        }
 
-                        MarkerOptions newMarker = new MarkerOptions().position(new LatLng(lat,
-                                lng));
+                        } catch (IOException ioe) {
+                            ioe.printStackTrace();
+                        }
+
+                        MarkerOptions newMarker = new MarkerOptions().position(new LatLng(lat,lng));
+                        newMarker.title(locations.get(i).getObjectId());
                         newMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker));
                         map.addMarker(newMarker);
                     }
-//                    map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//
-//                        @Override
-//                        public boolean onMarkerClick(Marker marker) {
-//
-//                            dialog.show();
-//                            return false;
-//                        }
-//                    });
+                    map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                        @Override
+                        public boolean onMarkerClick(Marker marker) {
+                            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Locations");
+                            query.whereEqualTo("objectId", marker.getTitle());
+                            query.findInBackground(new FindCallback<ParseObject>() {
+                                @Override
+                                public void done(List<ParseObject> locations, ParseException e) {
+                                    ParseFile fileGambar = (ParseFile) locations.get(0).get("photo");
+                                    fileGambar.getDataInBackground(new GetDataCallback() {
+                                        @Override
+                                        public void done(byte[] data, ParseException e) {
+                                            if(e == null){
+                                                bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                                Log.i("SEMOGA JADIIIII", bitmap.toString());
+                                            }
+                                            else{
+                                                Toast.makeText(getApplicationContext(), "Tidak dapat " +
+                                                        "mengambil gambar", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+
+                            AlertDialog.Builder dialogb = new AlertDialog.Builder(MapActivity.this);
+                            LayoutInflater inflater = LayoutInflater.from(MapActivity.this);
+                            imgview = inflater.inflate(R.layout.image_view, null);
+                            img = (ImageView) imgview.findViewById(R.id.markerImage);
+                            img.setImageBitmap(bitmap);
+                            dialogb.setTitle(addresses.get(0).getFeatureName());
+                            dialogb.setView(imgview);
+                            dialogb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                            dialog = dialogb.create();
+                            dialog.show();
+                            return false;
+                        }
+                    });
                 } else {
                     // Error
                     Log.e(TAG, e.getMessage());
