@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 } else {
-                    loading = ProgressDialog.show(LoginActivity.this, "", "", true);
+                    loading = ProgressDialog.show(LoginActivity.this, "", "Sedang memuat...", true);
 
                     ParseUser.logInInBackground(username, password, new LogInCallback() {
                         @Override
